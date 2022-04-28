@@ -15,15 +15,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JFrame;
 
-/**
- *
- * @author 1styrGroupB
- */
 public class LogInPage extends javax.swing.JFrame {
 
-    /**
-     * Creates new form LogInPage
-     */
+
     public LogInPage() {
         initComponents();
 
