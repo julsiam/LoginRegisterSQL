@@ -5,6 +5,14 @@
  */
 package loginregister;
 
+import java.awt.HeadlessException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author 1styrGroupB
@@ -16,6 +24,32 @@ public class CostumerTransaction extends javax.swing.JFrame {
      */
     public CostumerTransaction() {
         initComponents();
+        productTransaction();
+    
+//        displayTransaction();
+//        productPane.setVisible(true);
+//        productPannel.setVisible(false);
+//        orderPannel.setVisible(false);
+        
+        this.setLocationRelativeTo(null);
+    }
+    public void productTransaction() {
+        DefaultTableModel agriproducttable = (DefaultTableModel) productTable.getModel();
+        int count = 0;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
+                Statement stmt = con.createStatement();
+
+                ResultSet datas = stmt.executeQuery("SELECT * FROM `products`");
+                while (datas.next()) {
+                    count = 1;
+                    agriproducttable.addRow(new Object[]{datas.getString("ProductID"), datas.getString("Product Name") + " packs", "Php " + datas.getString("Product Price") + ".00" + datas.getString("Available Quantity") + datas.getString("Product Description") });
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -35,10 +69,12 @@ public class CostumerTransaction extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        productPane = new javax.swing.JTabbedPane();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        productTable = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -100,7 +136,36 @@ public class CostumerTransaction extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 59));
 
-        jTabbedPane1.setBackground(new java.awt.Color(0, 102, 0));
+        productPane.setBackground(new java.awt.Color(0, 102, 0));
+
+        productTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ProductID", "Product Name", "Product Price", "Available Quantity", "Product Description"
+            }
+        ));
+        jScrollPane1.setViewportView(productTable);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(78, 78, 78)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(143, Short.MAX_VALUE))
+        );
+
+        productPane.addTab("ProductPane", jPanel4);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -113,7 +178,7 @@ public class CostumerTransaction extends javax.swing.JFrame {
             .addGap(0, 460, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("ShopPane", jPanel5);
+        productPane.addTab("ShopPane", jPanel5);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -126,22 +191,9 @@ public class CostumerTransaction extends javax.swing.JFrame {
             .addGap(0, 460, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Transaction", jPanel6);
+        productPane.addTab("Transaction", jPanel6);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 735, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 460, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("ProductPane", jPanel4);
-
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 740, 490));
+        getContentPane().add(productPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 740, 490));
 
         jLabel1.setBackground(new java.awt.Color(0, 102, 0));
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\1styrGroupB\\Downloads\\finalsacos.PNG")); // NOI18N
@@ -152,7 +204,7 @@ public class CostumerTransaction extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+//        JTabbedPanel.selectedIndex(0);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -207,6 +259,8 @@ public class CostumerTransaction extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTabbedPane productPane;
+    private javax.swing.JTable productTable;
     // End of variables declaration//GEN-END:variables
 }

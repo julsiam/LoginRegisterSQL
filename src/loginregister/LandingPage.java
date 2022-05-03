@@ -1,11 +1,15 @@
 package loginregister;
 
+import javax.swing.JFrame;
+
 
 public class LandingPage extends javax.swing.JFrame {
 
     
     public LandingPage() {
         initComponents();
+        
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -37,6 +41,11 @@ public class LandingPage extends javax.swing.JFrame {
         });
 
         productBtn.setText("Products");
+        productBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                productBtnMouseClicked(evt);
+            }
+        });
         productBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 productBtnActionPerformed(evt);
@@ -138,6 +147,14 @@ public class LandingPage extends javax.swing.JFrame {
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_closeBtnActionPerformed
+
+    private void productBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productBtnMouseClicked
+//        new CostumerTransaction().setVisible(true);
+        productTransactOrder ct = new productTransactOrder();
+        ct.setVisible(true);
+        ct.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.dispose();
+    }//GEN-LAST:event_productBtnMouseClicked
 
     /**
      * @param args the command line arguments

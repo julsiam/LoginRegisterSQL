@@ -18,36 +18,36 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author 1styrGroupB
  */
-public class UsersInfo extends javax.swing.JFrame {
+public class CustomersInfo extends javax.swing.JFrame {
 
     /**
      * Creates new form UsersInfo
      */
-    public UsersInfo() {
+    public CustomersInfo() {
         initComponents();
         displayUsersInfo();
-        
+
         this.setLocationRelativeTo(null);
     }
-   
- 
+
 //making a method calling for the model table for displaying the user's info 
-     public void displayUsersInfo() {
-        DefaultTableModel userTableModel = (DefaultTableModel) userInfoTable.getModel(); // variable name should be connected to the usage of the statement or whatever. Connected to the user's info and not to the table method
+    public void displayUsersInfo() {        
+        DefaultTableModel customerstable = (DefaultTableModel) userInfoTable.getModel();
         int count = 0;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/userinfo", "root", "")) {
+            try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
                 Statement stmt = con.createStatement();
 
-                ResultSet datas = stmt.executeQuery("SELECT * FROM `registration_info`"); // using the SQL Statement to retrieve the data in the database (note: retrieve and access are two different things)
+                ResultSet datas = stmt.executeQuery("SELECT * FROM `customers_info`");
                 while (datas.next()) {
                     count = 1;
-                    userTableModel.addRow(new Object[]{datas.getString("Name"), datas.getString("Age"), datas.getString("Address"), datas.getString("Username")});
-                    System.out.println(datas.getString("Name"));
+                    customerstable.addRow(new Object[]{datas.getString("customersFullName"), datas.getString("address"), datas.getString("contactNumber"), datas.getString("username"), datas.getString("password")});
+                    
                 }
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -93,7 +93,7 @@ public class UsersInfo extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Name", "Age", "Address", "Username"
+                "Customer's Name", "Address", "Contact Number", "Username", "Password"
             }
         ));
         jScrollPane2.setViewportView(userInfoTable);
@@ -120,24 +120,26 @@ public class UsersInfo extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(128, 128, 128)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(237, 237, 237)
-                        .addComponent(Exit, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(65, Short.MAX_VALUE))
+                        .addComponent(Exit, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 317, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2)))
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(173, 173, 173)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addGap(31, 31, 31)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(33, 33, 33)
                 .addComponent(Exit, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(56, Short.MAX_VALUE))
         );
@@ -181,20 +183,21 @@ public class UsersInfo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UsersInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomersInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UsersInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomersInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UsersInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomersInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UsersInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomersInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UsersInfo().setVisible(true);
+                new CustomersInfo().setVisible(true);
             }
         });
     }
