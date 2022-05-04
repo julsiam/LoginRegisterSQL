@@ -230,7 +230,7 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonBackbtnActionPerformed
 
     private void jButtonBackbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonBackbtnMouseClicked
-        LogInPage lp = new LogInPage();
+        LogInPageforAdmin lp = new LogInPageforAdmin();
         lp.setVisible(true);
         lp.pack();
         lp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -159,7 +159,7 @@ public class CustomersInfo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitMouseClicked
-        LogInPage lp = new LogInPage();
+        LogInPageforAdmin lp = new LogInPageforAdmin();
         lp.setVisible(true);
         lp.pack();
         lp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
