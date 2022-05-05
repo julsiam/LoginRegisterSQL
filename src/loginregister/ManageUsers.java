@@ -5,6 +5,14 @@
  */
 package loginregister;
 
+import java.awt.HeadlessException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author 1styrGroupB
@@ -17,7 +25,77 @@ public class ManageUsers extends javax.swing.JFrame {
     public ManageUsers() {
         initComponents();
         this.setLocationRelativeTo(null);
+        
+        manageAdminAccount();
+        manageInventoryAccount();
+        manageCashierAccount();
     }
+    
+    
+    public void manageAdminAccount() {        
+        DefaultTableModel customerstable = (DefaultTableModel) manageadmintable.getModel();
+        int count = 0;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
+                Statement stmt = con.createStatement();
+
+                ResultSet datas = stmt.executeQuery("SELECT * FROM `user_accounts` WHERE role = 'Admin'");
+                while (datas.next()) {
+                    count = 1;
+                    customerstable.addRow(new Object[]{datas.getString("id"), datas.getString("role"), datas.getString("name"), datas.getString("contact_number"), datas.getString("address"), datas.getString("username"), datas.getString("password")});
+                    
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void manageInventoryAccount() {        
+        DefaultTableModel customerstable = (DefaultTableModel) manageinventorytable.getModel();
+        int count = 0;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
+                Statement stmt = con.createStatement();
+
+                ResultSet datas = stmt.executeQuery("SELECT * FROM `user_accounts` WHERE role = 'Inventory Person'");
+                while (datas.next()) {
+                    count = 1;
+                    customerstable.addRow(new Object[]{datas.getString("id"), datas.getString("role"), datas.getString("name"), datas.getString("contact_number"), datas.getString("address"), datas.getString("username"), datas.getString("password")});
+                    
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void manageCashierAccount() {        
+        DefaultTableModel customerstable = (DefaultTableModel) managecashiertable.getModel();
+        int count = 0;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
+                Statement stmt = con.createStatement();
+
+                ResultSet datas = stmt.executeQuery("SELECT * FROM `user_accounts` WHERE role = 'Cashier'");
+                while (datas.next()) {
+                    count = 1;
+                    customerstable.addRow(new Object[]{datas.getString("id"), datas.getString("role"), datas.getString("name"), datas.getString("contact_number"), datas.getString("address"), datas.getString("username"), datas.getString("password")});
+                    
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,7 +120,7 @@ public class ManageUsers extends javax.swing.JFrame {
         jPanel9 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        manageadmintable = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         updateadminaccbtn = new javax.swing.JButton();
         deleteadminaccbtn = new javax.swing.JButton();
@@ -51,14 +129,14 @@ public class ManageUsers extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        manageinventorytable = new javax.swing.JTable();
         jPanel10 = new javax.swing.JPanel();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         managecashieracc = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        managecashiertable = new javax.swing.JTable();
         jPanel11 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
@@ -174,7 +252,7 @@ public class ManageUsers extends javax.swing.JFrame {
 
         dunnopanel.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 70));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        manageadmintable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -182,7 +260,7 @@ public class ManageUsers extends javax.swing.JFrame {
                 "Admin_ID", "Name", "Role", "Contact No.", "Address", "Username", "Password"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(manageadmintable);
 
         dunnopanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 890, 370));
 
@@ -234,7 +312,7 @@ public class ManageUsers extends javax.swing.JFrame {
 
         jPanel6.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 70));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        manageinventorytable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -242,7 +320,7 @@ public class ManageUsers extends javax.swing.JFrame {
                 "IP_ID", "Name", "Role", "Contact No.", "Address", "Username", "Password"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(manageinventorytable);
 
         jPanel6.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 890, 370));
 
@@ -272,7 +350,7 @@ public class ManageUsers extends javax.swing.JFrame {
 
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        managecashiertable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -280,7 +358,7 @@ public class ManageUsers extends javax.swing.JFrame {
                 "Cashiers_ID", "Name", "Role", "Contact No.", "Address", "Username", "Password"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(managecashiertable);
 
         jPanel7.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 890, 370));
 
@@ -427,16 +505,16 @@ public class ManageUsers extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JPanel manageadminacc;
     private javax.swing.JButton manageadminbtn;
+    private javax.swing.JTable manageadmintable;
     private javax.swing.JPanel managecashieracc;
     private javax.swing.JButton managecashierbtn;
+    private javax.swing.JTable managecashiertable;
     private javax.swing.JButton manageexitbtn;
     private javax.swing.JPanel manageinventoryacc;
     private javax.swing.JButton manageinventorybtn;
+    private javax.swing.JTable manageinventorytable;
     private javax.swing.JButton updateadminaccbtn;
     // End of variables declaration//GEN-END:variables
 }

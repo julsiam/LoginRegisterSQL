@@ -29,6 +29,7 @@ public class CustomersInfo extends javax.swing.JFrame {
 
         this.setLocationRelativeTo(null);
     }
+    
 
 //making a method calling for the model table for displaying the user's info 
     public void displayUsersInfo() {        

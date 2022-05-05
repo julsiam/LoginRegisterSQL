@@ -5,6 +5,14 @@
  */
 package loginregister;
 
+import java.awt.HeadlessException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author 1styrGroupB
@@ -18,7 +26,75 @@ public class SystemUsers extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         
+        displayAdminAccount();
+        displayInventoryAccount();
+        displayCashierAccount();
+        
     }
+    
+    
+    public void displayAdminAccount() {        
+        DefaultTableModel customerstable = (DefaultTableModel) admintable.getModel();
+        int count = 0;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
+                Statement stmt = con.createStatement();
+
+                ResultSet datas = stmt.executeQuery("SELECT * FROM `user_accounts` WHERE role = 'Admin'");
+                while (datas.next()) {
+                    count = 1;
+                    customerstable.addRow(new Object[]{datas.getString("id"), datas.getString("role"), datas.getString("name"), datas.getString("contact_number"), datas.getString("address"), datas.getString("username"), datas.getString("password")});
+                    
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void displayInventoryAccount() {        
+        DefaultTableModel customerstable = (DefaultTableModel) inventorypersontable.getModel();
+        int count = 0;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
+                Statement stmt = con.createStatement();
+
+                ResultSet datas = stmt.executeQuery("SELECT * FROM `user_accounts` WHERE role = 'Inventory Person'");
+                while (datas.next()) {
+                    count = 1;
+                    customerstable.addRow(new Object[]{datas.getString("id"), datas.getString("role"), datas.getString("name"), datas.getString("contact_number"), datas.getString("address"), datas.getString("username"), datas.getString("password")});
+                    
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void displayCashierAccount() {        
+        DefaultTableModel customerstable = (DefaultTableModel) cashieracctable.getModel();
+        int count = 0;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
+                Statement stmt = con.createStatement();
+
+                ResultSet datas = stmt.executeQuery("SELECT * FROM `user_accounts` WHERE role = 'Cashier'");
+                while (datas.next()) {
+                    count = 1;
+                    customerstable.addRow(new Object[]{datas.getString("id"), datas.getString("role"), datas.getString("name"), datas.getString("contact_number"), datas.getString("address"), datas.getString("username"), datas.getString("password")});
+                    
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,21 +115,21 @@ public class SystemUsers extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        admintable = new javax.swing.JTable();
         inventoryaccpanel = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        inventorypersontable = new javax.swing.JTable();
         cashierpanel = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        cashieracctable = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         inventorybtn = new javax.swing.JButton();
         adminbtn = new javax.swing.JButton();
@@ -119,15 +195,15 @@ public class SystemUsers extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(0, 204, 204));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        admintable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Admin_ID", "Name", "Role", "Contact No.", "Address", "Username", "Password"
+                "Admin_ID", "Role", "Name", "Contact No.", "Address", "Username", "Password"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(admintable);
 
         jPanel5.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 930, 440));
 
@@ -175,15 +251,15 @@ public class SystemUsers extends javax.swing.JFrame {
 
         jPanel9.setBackground(new java.awt.Color(204, 204, 255));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        inventorypersontable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "IP_ID", "Name", "Role", "Contact No.", "Address", "Username", "Password"
+                "IP_ID", "Role", "Name", "Contact No.", "Address", "Username", "Password"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(inventorypersontable);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -246,15 +322,15 @@ public class SystemUsers extends javax.swing.JFrame {
 
         jPanel12.setBackground(new java.awt.Color(204, 255, 204));
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        cashieracctable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Cashier_ID", "Name", "Role", "Contact No", "Address", "Username", "Title 7"
+                "Cashier_ID", "Role", "Name", "Contact No", "Address", "Username", "Title 7"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(cashieracctable);
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -367,6 +443,8 @@ public class SystemUsers extends javax.swing.JFrame {
 
     private void adminbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminbtnMouseClicked
         jTabbedPane1.setSelectedIndex(0);
+       
+        
     }//GEN-LAST:event_adminbtnMouseClicked
 
     private void inventorybtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inventorybtnMouseClicked
@@ -420,11 +498,14 @@ public class SystemUsers extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel adminaccpanel;
     private javax.swing.JButton adminbtn;
+    private javax.swing.JTable admintable;
+    private javax.swing.JTable cashieracctable;
     private javax.swing.JButton cashierbtn;
     private javax.swing.JPanel cashierpanel;
     private javax.swing.JButton exitbtn;
     private javax.swing.JPanel inventoryaccpanel;
     private javax.swing.JButton inventorybtn;
+    private javax.swing.JTable inventorypersontable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -445,8 +526,5 @@ public class SystemUsers extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     // End of variables declaration//GEN-END:variables
 }

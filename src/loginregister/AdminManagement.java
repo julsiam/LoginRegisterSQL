@@ -89,6 +89,11 @@ public class AdminManagement extends javax.swing.JFrame {
         });
 
         adminlogoutbtn.setText("Logout");
+        adminlogoutbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                adminlogoutbtnMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -141,6 +146,11 @@ public class AdminManagement extends javax.swing.JFrame {
         new ManageUsers().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_manageusersbtnMouseClicked
+
+    private void adminlogoutbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminlogoutbtnMouseClicked
+        new LogInPageforUsers().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_adminlogoutbtnMouseClicked
 
     /**
      * @param args the command line arguments

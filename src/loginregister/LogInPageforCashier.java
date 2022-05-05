@@ -5,10 +5,16 @@
  */
 package loginregister;
 
-/**
- *
- * @author 1styrGroupB
- */
+
+import java.awt.event.ActionEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import javax.swing.JOptionPane;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JFrame;
 public class LogInPageforCashier extends javax.swing.JFrame {
 
     /**
@@ -16,6 +22,7 @@ public class LogInPageforCashier extends javax.swing.JFrame {
      */
     public LogInPageforCashier() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

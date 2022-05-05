@@ -1,8 +1,14 @@
 package loginregister;
 
-import javax.swing.JFrame;
-import java.sql.*;
+import java.awt.event.ActionEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import javax.swing.JOptionPane;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JFrame;
 
 public class Register extends javax.swing.JFrame {
 
@@ -28,6 +34,7 @@ public class Register extends javax.swing.JFrame {
         password = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         confirmpass = new javax.swing.JPasswordField();
+        jLabel9 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButtonRegister = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -37,6 +44,7 @@ public class Register extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jCheckBoxShowPass = new javax.swing.JCheckBox();
         jLabel6 = new javax.swing.JLabel();
+        rolebox = new javax.swing.JComboBox<>();
         name = new javax.swing.JTextField();
         contactno = new javax.swing.JTextField();
         address = new javax.swing.JTextField();
@@ -51,25 +59,30 @@ public class Register extends javax.swing.JFrame {
 
         username.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
         username.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 206, 190, 41));
+        jPanel1.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 270, 220, 41));
 
         password.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
         password.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 254, 190, 38));
+        jPanel1.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 320, 220, 38));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Full Name: ");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 76, 94, 27));
+        jLabel1.setText("Role:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 94, 27));
 
         confirmpass.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
         confirmpass.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.add(confirmpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 299, 190, 41));
+        jPanel1.add(confirmpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 370, 220, 41));
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Full Name: ");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 94, 27));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Contact No.");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 123, 150, 21));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 150, 21));
 
         jButtonRegister.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonRegister.setText("Register");
@@ -89,7 +102,7 @@ public class Register extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Address:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 169, 94, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 94, -1));
 
         jButtonReset.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonReset.setText("Reset");
@@ -99,12 +112,12 @@ public class Register extends javax.swing.JFrame {
                 jButtonResetActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 430, 78, 32));
+        jPanel1.add(jButtonReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 450, 78, 32));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Username:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 216, 94, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 94, -1));
 
         jButtonBackbtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonBackbtn.setText("Back to Login");
@@ -124,7 +137,7 @@ public class Register extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Password:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 263, 94, 21));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 94, 21));
 
         jCheckBoxShowPass.setText("Show Password");
         jCheckBoxShowPass.addActionListener(new java.awt.event.ActionListener() {
@@ -132,12 +145,16 @@ public class Register extends javax.swing.JFrame {
                 jCheckBoxShowPassActionPerformed(evt);
             }
         });
-        jPanel1.add(jCheckBoxShowPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 358, -1, 21));
+        jPanel1.add(jCheckBoxShowPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 420, -1, 21));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Confirm Password:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 299, 137, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, 137, -1));
+
+        rolebox.setFont(new java.awt.Font("Courier New", 3, 18)); // NOI18N
+        rolebox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose  a role...", "Admin", "Inventory Person", "Cashier" }));
+        jPanel1.add(rolebox, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 220, 40));
 
         name.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
         name.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -146,19 +163,19 @@ public class Register extends javax.swing.JFrame {
                 nameActionPerformed(evt);
             }
         });
-        jPanel1.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 190, 35));
+        jPanel1.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 220, 40));
 
         contactno.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
         contactno.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.add(contactno, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 114, 190, 38));
+        jPanel1.add(contactno, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 220, 38));
 
         address.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
         address.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.add(address, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 159, 190, 40));
+        jPanel1.add(address, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, 220, 40));
 
         jLabel7.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText(" Customer's Registration Form");
+        jLabel7.setText(" Admin Registration Form");
         jLabel7.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 5, true));
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 430, -1));
 
@@ -184,34 +201,70 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_nameActionPerformed
 
     private void jButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegisterActionPerformed
-       
+        String role = rolebox.getSelectedItem().toString();
         String Name = this.name.getText();
         String Contact = this.contactno.getText();
         String Address = this.address.getText();
         String uname = this.username.getText();
         String pword = this.password.getText();
         
-        try {
+        if (this.confirmpass.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Confirm your Password!", "Alert", JOptionPane.ERROR_MESSAGE);
+        } else if (this.password.getText() == null ? this.confirmpass.getText() != null : !this.password.getText().equals(this.confirmpass.getText())) {
+            JOptionPane.showMessageDialog(null, "Password doesn't Match!", "Alert", JOptionPane.ERROR_MESSAGE);
+            this.confirmpass.setText("");
+        } else {
+
+            try {
                 Class.forName("com.mysql.jdbc.Driver");// The DriverManager class is the component of JDBC API and also a member of the java.sql package. The DriverManager class acts as an interface between users and drivers. It keeps track of the drivers that are available and handles establishing a connection between a database and the appropriate driver.
 
                 try (Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
 
                     Statement stmt = con.createStatement();
 
-                    String query1 = "INSERT INTO `customers_info` (`customersFullName`, `address`, `contactNumber`, `username`, `password`) VALUES"
-
-                            + "('" + Name + "','" + Address + "','" + Contact + "','" + uname + "','" + pword + "')";
+                    String query1 = "INSERT INTO `user_accounts`(`role`, `Name`, `contact_number`, `address`, `username`, `password`) VALUES"
+                            + "('" + role + "','" + Name + "','"  + Contact + "','" + Address + "','" + uname + "','" + pword + "')";
 
                     stmt.executeUpdate(query1);
-                    
+
                     JOptionPane.showMessageDialog(this, "Registered Successfully");
                 }
-                System.out.println(Name);
+             
             } catch (ClassNotFoundException | SQLException e) {
 
                 System.out.println(e.getMessage());
 
             }
+        }
+        
+//        if (this.confirmpass.getText().isEmpty()) {
+//            JOptionPane.showMessageDialog(null, "Confirm your Password!", "Alert", JOptionPane.ERROR_MESSAGE);
+//        } else if (this.password.getText() == null ? this.confirmpass.getText() != null : !this.password.getText().equals(this.confirmpass.getText())) {
+//            JOptionPane.showMessageDialog(null, "Password doesn't Match!", "Alert", JOptionPane.ERROR_MESSAGE);
+//            this.confirmpass.setText("");
+//        } else {
+//
+//            try {
+//                Class.forName("com.mysql.jdbc.Driver");// The DriverManager class is the component of JDBC API and also a member of the java.sql package. The DriverManager class acts as an interface between users and drivers. It keeps track of the drivers that are available and handles establishing a connection between a database and the appropriate driver.
+//
+//                try (Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
+//
+//                    Statement stmt = con.createStatement();
+//
+//                    String query1 = "INSERT INTO `customers_info` (`customersFullName`, `address`, `contactNumber`, `username`, `password`) VALUES"
+//                            + "('" + Name + "','" + Address + "','" + Contact + "','" + uname + "','" + pword + "')";
+//
+//                    stmt.executeUpdate(query1);
+//
+//                    JOptionPane.showMessageDialog(this, "Registered Successfully");
+//                }
+//                System.out.println(Name);
+//            } catch (ClassNotFoundException | SQLException e) {
+//
+//                System.out.println(e.getMessage());
+//
+//            }
+//        }
     }//GEN-LAST:event_jButtonRegisterActionPerformed
 
     private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
@@ -230,11 +283,9 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonBackbtnActionPerformed
 
     private void jButtonBackbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonBackbtnMouseClicked
-        LogInPageforAdmin lp = new LogInPageforAdmin();
-        lp.setVisible(true);
-        lp.pack();
-        lp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        new LogInPageforUsers().setVisible(true);
         this.dispose();
+        
     }//GEN-LAST:event_jButtonBackbtnMouseClicked
 
     private void jCheckBoxShowPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxShowPassActionPerformed
@@ -242,7 +293,7 @@ public class Register extends javax.swing.JFrame {
             if (jCheckBoxShowPass.isSelected()) {
                 password.setEchoChar((char) 0);
                 confirmpass.setEchoChar((char) 0);
-                
+
             } else {
                 password.setEchoChar('*');
                 confirmpass.setEchoChar('*');
@@ -251,7 +302,7 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBoxShowPassActionPerformed
 
     private void jButtonRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRegisterMouseClicked
-        
+
     }//GEN-LAST:event_jButtonRegisterMouseClicked
 
     /**
@@ -305,9 +356,11 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField name;
     private javax.swing.JPasswordField password;
+    private javax.swing.JComboBox<String> rolebox;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }

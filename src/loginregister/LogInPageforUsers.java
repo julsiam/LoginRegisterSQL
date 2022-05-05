@@ -5,17 +5,24 @@
  */
 package loginregister;
 
-/**
- *
- * @author 1styrGroupB
- */
-public class LogInPageforInventory extends javax.swing.JFrame {
+import java.awt.event.ActionEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import javax.swing.JOptionPane;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JFrame;
+
+public class LogInPageforUsers extends javax.swing.JFrame {
 
     /**
      * Creates new form LogInPageforInventory
      */
-    public LogInPageforInventory() {
+    public LogInPageforUsers() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -30,11 +37,13 @@ public class LogInPageforInventory extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        roleuserbox = new javax.swing.JComboBox<>();
         ipusername = new javax.swing.JTextField();
         ippassword = new javax.swing.JPasswordField();
         ipLogInbtn = new javax.swing.JButton();
         jButtonRegister = new javax.swing.JButton();
         jCheckBoxshowpass = new javax.swing.JCheckBox();
+        jLabel5 = new javax.swing.JLabel();
         jButtonReset = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -47,13 +56,17 @@ public class LogInPageforInventory extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Courier New", 3, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Username:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 137, -1, -1));
+        jLabel1.setText("Role:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Courier New", 3, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Password: ");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 204, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
+
+        roleuserbox.setFont(new java.awt.Font("Courier New", 3, 14)); // NOI18N
+        roleuserbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose your role...", "Admin", "Inventory Person", "Cashier" }));
+        jPanel1.add(roleuserbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 210, 40));
 
         ipusername.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         ipusername.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -65,7 +78,7 @@ public class LogInPageforInventory extends javax.swing.JFrame {
                 ipusernameFocusLost(evt);
             }
         });
-        jPanel1.add(ipusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(141, 125, 206, 33));
+        jPanel1.add(ipusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 210, 33));
 
         ippassword.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         ippassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -77,7 +90,7 @@ public class LogInPageforInventory extends javax.swing.JFrame {
                 ippasswordFocusLost(evt);
             }
         });
-        jPanel1.add(ippassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(141, 192, 206, 33));
+        jPanel1.add(ippassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 210, 33));
 
         ipLogInbtn.setBackground(new java.awt.Color(153, 153, 153));
         ipLogInbtn.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
@@ -93,7 +106,7 @@ public class LogInPageforInventory extends javax.swing.JFrame {
                 ipLogInbtnActionPerformed(evt);
             }
         });
-        jPanel1.add(ipLogInbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 336, 116, -1));
+        jPanel1.add(ipLogInbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 130, -1));
 
         jButtonRegister.setBackground(new java.awt.Color(153, 153, 153));
         jButtonRegister.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
@@ -104,17 +117,22 @@ public class LogInPageforInventory extends javax.swing.JFrame {
                 jButtonRegisterMouseClicked(evt);
             }
         });
-        jPanel1.add(jButtonRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 336, 112, -1));
+        jPanel1.add(jButtonRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, 130, -1));
 
         jCheckBoxshowpass.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
-        jCheckBoxshowpass.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBoxshowpass.setForeground(new java.awt.Color(0, 102, 102));
         jCheckBoxshowpass.setText("Show Password");
         jCheckBoxshowpass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBoxshowpassActionPerformed(evt);
             }
         });
-        jPanel1.add(jCheckBoxshowpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(178, 243, -1, -1));
+        jPanel1.add(jCheckBoxshowpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Courier New", 3, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Username:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
 
         jButtonReset.setBackground(new java.awt.Color(153, 153, 153));
         jButtonReset.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
@@ -125,7 +143,7 @@ public class LogInPageforInventory extends javax.swing.JFrame {
                 jButtonResetActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 296, 85, -1));
+        jPanel1.add(jButtonReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 85, -1));
 
         jLabel3.setFont(new java.awt.Font("Courier New", 3, 20)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -139,7 +157,7 @@ public class LogInPageforInventory extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Courier New", 3, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Inventory Person Verification");
+        jLabel7.setText("User Verification");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -168,7 +186,7 @@ public class LogInPageforInventory extends javax.swing.JFrame {
         // on focus lost event
 
         if (ipusername.getText().trim().equals("")
-            || ipusername.getText().trim().toLowerCase().equals("username")) {
+                || ipusername.getText().trim().toLowerCase().equals("username")) {
             ipusername.setText("username");
         }
     }//GEN-LAST:event_ipusernameFocusLost
@@ -193,36 +211,23 @@ public class LogInPageforInventory extends javax.swing.JFrame {
         String pass = String.valueOf(ippassword.getPassword());
 
         if (pass.trim().equals("")
-            || pass.trim().toLowerCase().equals("password")) {
+                || pass.trim().toLowerCase().equals("password")) {
             ippassword.setText("password");
         }
     }//GEN-LAST:event_ippasswordFocusLost
 
     private void ipLogInbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ipLogInbtnMouseClicked
-        //        if (evt.getSource() == LogIn) {
-            //            String userText;
-            //            String pwdText;
-            //            userText = username.getText();
-            //            pwdText = password.getText();
-            //            if (userText.equalsIgnoreCase("Juls") && pwdText.equalsIgnoreCase("Estorco")) {
-                //                JOptionPane.showMessageDialog(this, "Login Successfully");
-                //                UsersInfo ui = new UsersInfo();
-                //                ui.setVisible(true);
-                //                ui.pack();
-                //                ui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                //                this.dispose();
-                //
-                //            } else {
-                //                JOptionPane.showMessageDialog(this, "Login Successful");
-                //            }
-            //        }
-
+     
+        String role = roleuserbox.getSelectedItem().toString();
         String uname = ipusername.getText();
         String pass = String.valueOf(ippassword.getPassword());
 
-        if ("@admin".equals(this.ipusername.getText()) && "estorco@123".equals(this.ippassword.getText())) {
-            new AdminManagement().setVisible(true);
-            this.setVisible(false);
+        if ("Choose your role...".equals(this.roleuserbox.getSelectedItem().toString())) {
+            JOptionPane.showMessageDialog(this, "Choose your role in the system!", "Alert", JOptionPane.ERROR_MESSAGE);
+            if ("".equals(this.ipusername.getText()) && "".equals(this.ippassword.getText())) {
+            JOptionPane.showMessageDialog(this, "Invalid Username and Password", "Alert", JOptionPane.ERROR_MESSAGE);
+        }
+        
         } else {
 
             try {
@@ -232,19 +237,19 @@ public class LogInPageforInventory extends javax.swing.JFrame {
                 try (Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
 
                     Statement stmt = con.createStatement();
-
-                    String query1 = "SELECT * FROM customers_info WHERE username = '" + uname + "' and password = '" + pass + "'";
-
+                    
+                    String query1 = "SELECT * FROM `user_accounts` WHERE role = '" + role + "' AND username = '" + uname + "' AND password = '" + pass + "'";
                     ResultSet rs = stmt.executeQuery(query1);
 
                     if (rs.next()) {
                         dispose();//close login page
 
-                        new LandingPage().setVisible(true);
+                        new AdminManagement().setVisible(true);
+                        this.setVisible(false);
 
                     } else {
 
-                        JOptionPane.showMessageDialog(this, "Account doesn't exist, Register first!", "Alert", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "This admin ccount doesn't exist, Register first!", "Alert", JOptionPane.ERROR_MESSAGE);
                         //
                         //                    uname.setText(null);
                         //
@@ -260,46 +265,7 @@ public class LogInPageforInventory extends javax.swing.JFrame {
     }//GEN-LAST:event_ipLogInbtnMouseClicked
 
     private void ipLogInbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ipLogInbtnActionPerformed
-        PreparedStatement st;
-        ResultSet rs;
-
-        // get the username & password
-        //
-        //        //create a select query to check if the username and the password exist in the database
-        //        String query = "SELECT * FROM `users` WHERE `username` = ? AND `password` = ?";
-        //
-        //        // show a message if the username or the password fields are empty
-        //        if (username.trim().equals("username")) {
-            //            JOptionPane.showMessageDialog(null, "Enter Your Username", "Empty Username", 2);
-            //        } else if (password.trim().equals("password")) {
-            //            JOptionPane.showMessageDialog(null, "Enter Your Password", "Empty Password", 2);
-            //        } else {
-            //
-            //            try {
-                //                st = My_CNX.getConnection().prepareStatement(query);
-                //
-                //                st.setString(1, username);
-                //                st.setString(2, password);
-                //                rs = st.executeQuery();
-                //
-                //                if (rs.next()) {
-                    //                    // show a new form
-                    //                    Menu_Form form = new Menu_Form();
-                    //                    form.setVisible(true);
-                    //                    form.pack();
-                    //                    form.setLocationRelativeTo(null);
-                    //                    // close the current form(login form)
-                    //                    this.dispose();
-                    //
-                    //                } else {
-                    //                    // error message
-                    //                    JOptionPane.showMessageDialog(null, "Invalid Username / Password", "Login Error", 2);
-                    //                }
-                //
-                //            } catch (SQLException ex) {
-                //                Logger.getLogger(Login_Form.class.getName()).log(Level.SEVERE, null, ex);
-                //            }
-            //        }
+ 
     }//GEN-LAST:event_ipLogInbtnActionPerformed
 
     private void jButtonRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRegisterMouseClicked
@@ -344,20 +310,21 @@ public class LogInPageforInventory extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LogInPageforInventory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LogInPageforUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LogInPageforInventory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LogInPageforUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LogInPageforInventory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LogInPageforUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LogInPageforInventory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LogInPageforUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LogInPageforInventory().setVisible(true);
+                new LogInPageforUsers().setVisible(true);
             }
         });
     }
@@ -373,7 +340,9 @@ public class LogInPageforInventory extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JComboBox<String> roleuserbox;
     // End of variables declaration//GEN-END:variables
 }

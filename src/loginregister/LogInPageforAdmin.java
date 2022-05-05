@@ -41,6 +41,7 @@ public class LogInPageforAdmin extends javax.swing.JFrame {
         jButtonRegister = new javax.swing.JButton();
         jCheckBoxshowpass = new javax.swing.JCheckBox();
         jButtonReset = new javax.swing.JButton();
+        jButtonReset1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -110,7 +111,7 @@ public class LogInPageforAdmin extends javax.swing.JFrame {
                 jButtonRegisterMouseClicked(evt);
             }
         });
-        jPanel1.add(jButtonRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 336, 112, -1));
+        jPanel1.add(jButtonRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(222, 336, 140, -1));
 
         jCheckBoxshowpass.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
         jCheckBoxshowpass.setForeground(new java.awt.Color(255, 255, 255));
@@ -124,14 +125,25 @@ public class LogInPageforAdmin extends javax.swing.JFrame {
 
         jButtonReset.setBackground(new java.awt.Color(153, 153, 153));
         jButtonReset.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
-        jButtonReset.setText("Reset");
+        jButtonReset.setText("Back");
         jButtonReset.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 255, 102), 3));
         jButtonReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonResetActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 296, 85, -1));
+        jPanel1.add(jButtonReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 290, 85, -1));
+
+        jButtonReset1.setBackground(new java.awt.Color(153, 153, 153));
+        jButtonReset1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        jButtonReset1.setText("Reset");
+        jButtonReset1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 255, 102), 3));
+        jButtonReset1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReset1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonReset1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, 85, -1));
 
         jLabel3.setFont(new java.awt.Font("Courier New", 3, 20)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -145,7 +157,7 @@ public class LogInPageforAdmin extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Courier New", 3, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Admin Verification");
+        jLabel7.setText("User Verification");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -226,7 +238,7 @@ public class LogInPageforAdmin extends javax.swing.JFrame {
 //                JOptionPane.showMessageDialog(this, "Login Successful");
 //            }
 //        }
-
+        
         String uname = adminusername.getText();
         String pass = String.valueOf(adminpassword.getPassword());
 
@@ -243,7 +255,7 @@ public class LogInPageforAdmin extends javax.swing.JFrame {
 
                     Statement stmt = con.createStatement();
 
-                    String query1 = "SELECT * FROM customers_info WHERE username = '" + uname + "' and password = '" + pass + "'";
+                    String query1 = "SELECT * FROM user_accounts WHERE username = '" + uname + "' and password = '" + pass + "'";
 
                     ResultSet rs = stmt.executeQuery(query1);
 
@@ -338,6 +350,10 @@ public class LogInPageforAdmin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonResetActionPerformed
 
+    private void jButtonReset1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReset1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonReset1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -394,6 +410,7 @@ public class LogInPageforAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField adminusername;
     private javax.swing.JButton jButtonRegister;
     private javax.swing.JButton jButtonReset;
+    private javax.swing.JButton jButtonReset1;
     private javax.swing.JCheckBox jCheckBoxshowpass;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

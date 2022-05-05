@@ -5,6 +5,8 @@
  */
 package loginregister;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 1styrGroupB
@@ -107,14 +109,17 @@ public class ChooseRole extends javax.swing.JFrame {
 
     private void roleloginbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roleloginbtnMouseClicked
         if ("Admin".equals(chooserolebox.getSelectedItem())) {
-            new LogInPageforAdmin().setVisible(true);
+            new LogInPageforUsers().setVisible(true);
             this.dispose();
-        } 
-//        else 
-//            ("Inventory".equals(chooserolebox.getSelectedItem())){
-//            new LogInPageforInventory().setVisible(true);
-//            this.dispose();
-//        }
+        } else if ("Inventory Person".equals(chooserolebox.getSelectedItem())) {
+           new LogInPageforUsers().setVisible(true);
+            this.dispose();
+        }else if("Cashier".equals(chooserolebox.getSelectedItem())) {
+           new LogInPageforUsers().setVisible(true);
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(null, "Choose a Role", "Alert", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_roleloginbtnMouseClicked
 
     private void chooseroleboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseroleboxActionPerformed
