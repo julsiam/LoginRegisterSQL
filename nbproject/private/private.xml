@@ -12,12 +12,9 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/1styrGroupB/Documents/NetBeansProjects/LogInRegister/src/loginregister/ChooseRole.java</file>
-            <file>file:/C:/Users/1styrGroupB/Documents/NetBeansProjects/LogInRegister/src/loginregister/LogInPageforCashier.java</file>
-            <file>file:/C:/Users/1styrGroupB/Documents/NetBeansProjects/LogInRegister/src/loginregister/LogInPageforInventory.java</file>
-            <file>file:/C:/Users/1styrGroupB/Documents/NetBeansProjects/LogInRegister/src/loginregister/LogInPageforAdmin.java</file>
-            <file>file:/C:/Users/1styrGroupB/Documents/NetBeansProjects/LogInRegister/src/loginregister/SystemUsers.java</file>
-            <file>file:/C:/Users/1styrGroupB/Documents/NetBeansProjects/LogInRegister/src/loginregister/ManageUsers.java</file>
+            <file>file:/C:/Users/1styrGroupB/Documents/NetBeansProjects/LogInRegister/src/loginregister/LogInPageforUsers.java</file>
+            <file>file:/C:/Users/1styrGroupB/Documents/NetBeansProjects/LogInRegister/src/loginregister/CashierSection.java</file>
+            <file>file:/C:/Users/1styrGroupB/Documents/NetBeansProjects/LogInRegister/src/loginregister/ManageInventory.java</file>
         </group>
     </open-files>
 </project-private>

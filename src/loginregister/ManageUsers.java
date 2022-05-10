@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,15 +26,14 @@ public class ManageUsers extends javax.swing.JFrame {
     public ManageUsers() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
+
         manageAdminAccount();
         manageInventoryAccount();
         manageCashierAccount();
     }
-    
-    
-    public void manageAdminAccount() {        
-        DefaultTableModel customerstable = (DefaultTableModel) manageadmintable.getModel();
+
+    public void manageAdminAccount() {
+        DefaultTableModel admintable = (DefaultTableModel) manageadmintable.getModel();
         int count = 0;
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -43,17 +43,17 @@ public class ManageUsers extends javax.swing.JFrame {
                 ResultSet datas = stmt.executeQuery("SELECT * FROM `user_accounts` WHERE role = 'Admin'");
                 while (datas.next()) {
                     count = 1;
-                    customerstable.addRow(new Object[]{datas.getString("id"), datas.getString("role"), datas.getString("name"), datas.getString("contact_number"), datas.getString("address"), datas.getString("username"), datas.getString("password")});
-                    
+                    admintable.addRow(new Object[]{datas.getString("id"), datas.getString("role"), datas.getString("name"), datas.getString("contact_number"), datas.getString("address"), datas.getString("username"), datas.getString("password")});
+
                 }
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
         }
     }
-    
-    public void manageInventoryAccount() {        
-        DefaultTableModel customerstable = (DefaultTableModel) manageinventorytable.getModel();
+
+    public void manageInventoryAccount() {
+        DefaultTableModel inventorytable = (DefaultTableModel) manageinventorytable.getModel();
         int count = 0;
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -63,17 +63,17 @@ public class ManageUsers extends javax.swing.JFrame {
                 ResultSet datas = stmt.executeQuery("SELECT * FROM `user_accounts` WHERE role = 'Inventory Person'");
                 while (datas.next()) {
                     count = 1;
-                    customerstable.addRow(new Object[]{datas.getString("id"), datas.getString("role"), datas.getString("name"), datas.getString("contact_number"), datas.getString("address"), datas.getString("username"), datas.getString("password")});
-                    
+                    inventorytable.addRow(new Object[]{datas.getString("id"), datas.getString("role"), datas.getString("name"), datas.getString("contact_number"), datas.getString("address"), datas.getString("username"), datas.getString("password")});
+
                 }
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
         }
     }
-    
-    public void manageCashierAccount() {        
-        DefaultTableModel customerstable = (DefaultTableModel) managecashiertable.getModel();
+
+    public void manageCashierAccount() {
+        DefaultTableModel cashiertable = (DefaultTableModel) managecashiertable.getModel();
         int count = 0;
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -83,19 +83,14 @@ public class ManageUsers extends javax.swing.JFrame {
                 ResultSet datas = stmt.executeQuery("SELECT * FROM `user_accounts` WHERE role = 'Cashier'");
                 while (datas.next()) {
                     count = 1;
-                    customerstable.addRow(new Object[]{datas.getString("id"), datas.getString("role"), datas.getString("name"), datas.getString("contact_number"), datas.getString("address"), datas.getString("username"), datas.getString("password")});
-                    
+                    cashiertable.addRow(new Object[]{datas.getString("id"), datas.getString("role"), datas.getString("name"), datas.getString("contact_number"), datas.getString("address"), datas.getString("username"), datas.getString("password")});
+
                 }
             }
         } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
         }
     }
-    
-    
-    
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -124,6 +119,20 @@ public class ManageUsers extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         updateadminaccbtn = new javax.swing.JButton();
         deleteadminaccbtn = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        idfield = new javax.swing.JTextField();
+        namefield = new javax.swing.JTextField();
+        passwordfield = new javax.swing.JTextField();
+        rolefield = new javax.swing.JTextField();
+        contactfield = new javax.swing.JTextField();
+        addressfield = new javax.swing.JTextField();
+        usernamefield = new javax.swing.JTextField();
         manageinventoryacc = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -131,8 +140,25 @@ public class ManageUsers extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         manageinventorytable = new javax.swing.JTable();
         jPanel10 = new javax.swing.JPanel();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        manageipupdatebtn = new javax.swing.JButton();
+        manageipdeletebtn = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        updateadminaccbtn1 = new javax.swing.JButton();
+        deleteadminaccbtn1 = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        ipidfield = new javax.swing.JTextField();
+        ipnamefield = new javax.swing.JTextField();
+        ippasswordfield = new javax.swing.JTextField();
+        iprolefield = new javax.swing.JTextField();
+        ipcontactfield = new javax.swing.JTextField();
+        ipaddressfield = new javax.swing.JTextField();
+        ipusernamefield = new javax.swing.JTextField();
         managecashieracc = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -140,8 +166,28 @@ public class ManageUsers extends javax.swing.JFrame {
         jPanel11 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
+        cashierupdatebtn = new javax.swing.JButton();
+        cashierdeletebtn = new javax.swing.JButton();
+        jPanel13 = new javax.swing.JPanel();
+        manageipupdatebtn1 = new javax.swing.JButton();
+        manageipdeletebtn1 = new javax.swing.JButton();
+        jPanel14 = new javax.swing.JPanel();
+        updateadminaccbtn2 = new javax.swing.JButton();
+        deleteadminaccbtn2 = new javax.swing.JButton();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        cashieridfield = new javax.swing.JTextField();
+        cashiernamefield1 = new javax.swing.JTextField();
+        cashierpasswordfield = new javax.swing.JTextField();
+        cashierrolefield = new javax.swing.JTextField();
+        cashiercontactfield = new javax.swing.JTextField();
+        cashieraddressfield = new javax.swing.JTextField();
+        cashierusernamefield = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -257,23 +303,66 @@ public class ManageUsers extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Admin_ID", "Name", "Role", "Contact No.", "Address", "Username", "Password"
+                "Admin_ID", "Role", "Name", "Contact No.", "Address", "Username", "Password"
             }
         ));
+        manageadmintable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                manageadmintableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(manageadmintable);
 
-        dunnopanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 890, 370));
+        dunnopanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 890, 170));
 
         jPanel3.setBackground(new java.awt.Color(102, 0, 102));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         updateadminaccbtn.setText("Update");
+        updateadminaccbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                updateadminaccbtnMouseClicked(evt);
+            }
+        });
         jPanel3.add(updateadminaccbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
 
         deleteadminaccbtn.setText("Delete");
+        deleteadminaccbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deleteadminaccbtnMouseClicked(evt);
+            }
+        });
         jPanel3.add(deleteadminaccbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, -1));
 
         dunnopanel.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 460, 220, 60));
+
+        jLabel5.setText("Password:");
+        dunnopanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 320, -1, -1));
+
+        jLabel6.setText("Admin_ID:");
+        dunnopanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, -1, -1));
+
+        jLabel7.setText("Name:");
+        dunnopanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, -1, -1));
+
+        jLabel8.setText("Role:");
+        dunnopanel.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, -1));
+
+        jLabel9.setText("Contact No.");
+        dunnopanel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, -1, -1));
+
+        jLabel10.setText("Address:");
+        dunnopanel.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, -1, -1));
+
+        jLabel11.setText("Username:");
+        dunnopanel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, -1, -1));
+        dunnopanel.add(idfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, 230, -1));
+        dunnopanel.add(namefield, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 340, 230, -1));
+        dunnopanel.add(passwordfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 320, 230, -1));
+        dunnopanel.add(rolefield, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, 230, -1));
+        dunnopanel.add(contactfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, 230, -1));
+        dunnopanel.add(addressfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 400, 230, -1));
+        dunnopanel.add(usernamefield, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 280, 230, -1));
 
         javax.swing.GroupLayout manageadminaccLayout = new javax.swing.GroupLayout(manageadminacc);
         manageadminacc.setLayout(manageadminaccLayout);
@@ -317,23 +406,87 @@ public class ManageUsers extends javax.swing.JFrame {
 
             },
             new String [] {
-                "IP_ID", "Name", "Role", "Contact No.", "Address", "Username", "Password"
+                "IP_ID", "Role", "Name", "Contact No.", "Address", "Username", "Password"
             }
         ));
+        manageinventorytable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                manageinventorytableMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(manageinventorytable);
 
-        jPanel6.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 890, 370));
+        jPanel6.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 890, 160));
 
         jPanel10.setBackground(new java.awt.Color(102, 0, 102));
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton8.setText("Update");
-        jPanel10.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+        manageipupdatebtn.setText("Update");
+        manageipupdatebtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                manageipupdatebtnMouseClicked(evt);
+            }
+        });
+        jPanel10.add(manageipupdatebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
 
-        jButton9.setText("Delete");
-        jPanel10.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, -1));
+        manageipdeletebtn.setText("Delete");
+        manageipdeletebtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                manageipdeletebtnMouseClicked(evt);
+            }
+        });
+        jPanel10.add(manageipdeletebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, -1));
 
         jPanel6.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 460, 230, 60));
+
+        jPanel5.setBackground(new java.awt.Color(102, 0, 102));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        updateadminaccbtn1.setText("Update");
+        updateadminaccbtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                updateadminaccbtn1MouseClicked(evt);
+            }
+        });
+        jPanel5.add(updateadminaccbtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+
+        deleteadminaccbtn1.setText("Delete");
+        deleteadminaccbtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deleteadminaccbtn1MouseClicked(evt);
+            }
+        });
+        jPanel5.add(deleteadminaccbtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, -1));
+
+        jPanel6.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 460, 220, 60));
+
+        jLabel12.setText("Password:");
+        jPanel6.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 320, -1, -1));
+
+        jLabel13.setText("IP_ID:");
+        jPanel6.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, -1, -1));
+
+        jLabel14.setText("Name:");
+        jPanel6.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, -1, -1));
+
+        jLabel15.setText("Role:");
+        jPanel6.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, -1));
+
+        jLabel16.setText("Contact No.");
+        jPanel6.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, -1, -1));
+
+        jLabel17.setText("Address:");
+        jPanel6.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, -1, -1));
+
+        jLabel18.setText("Username:");
+        jPanel6.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, -1, -1));
+        jPanel6.add(ipidfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, 230, -1));
+        jPanel6.add(ipnamefield, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 340, 230, -1));
+        jPanel6.add(ippasswordfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 320, 230, -1));
+        jPanel6.add(iprolefield, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, 230, -1));
+        jPanel6.add(ipcontactfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, 230, -1));
+        jPanel6.add(ipaddressfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 400, 230, -1));
+        jPanel6.add(ipusernamefield, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 280, 230, -1));
 
         javax.swing.GroupLayout manageinventoryaccLayout = new javax.swing.GroupLayout(manageinventoryacc);
         manageinventoryacc.setLayout(manageinventoryaccLayout);
@@ -355,12 +508,17 @@ public class ManageUsers extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Cashiers_ID", "Name", "Role", "Contact No.", "Address", "Username", "Password"
+                "Cashiers_ID", "Role", "Name", "Contact No.", "Address", "Username", "Password"
             }
         ));
+        managecashiertable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                managecashiertableMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(managecashiertable);
 
-        jPanel7.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 890, 370));
+        jPanel7.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 890, 160));
 
         jPanel11.setBackground(new java.awt.Color(51, 0, 0));
 
@@ -390,13 +548,93 @@ public class ManageUsers extends javax.swing.JFrame {
         jPanel12.setBackground(new java.awt.Color(102, 0, 102));
         jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton11.setText("Update");
-        jPanel12.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+        cashierupdatebtn.setText("Update");
+        cashierupdatebtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cashierupdatebtnMouseClicked(evt);
+            }
+        });
+        jPanel12.add(cashierupdatebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
 
-        jButton12.setText("Delete");
-        jPanel12.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, -1));
+        cashierdeletebtn.setText("Delete");
+        cashierdeletebtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cashierdeletebtnMouseClicked(evt);
+            }
+        });
+        jPanel12.add(cashierdeletebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, -1));
 
         jPanel7.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 460, 230, 60));
+
+        jPanel13.setBackground(new java.awt.Color(102, 0, 102));
+        jPanel13.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        manageipupdatebtn1.setText("Update");
+        manageipupdatebtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                manageipupdatebtn1MouseClicked(evt);
+            }
+        });
+        jPanel13.add(manageipupdatebtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+
+        manageipdeletebtn1.setText("Delete");
+        manageipdeletebtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                manageipdeletebtn1MouseClicked(evt);
+            }
+        });
+        jPanel13.add(manageipdeletebtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, -1));
+
+        jPanel7.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 460, 230, 60));
+
+        jPanel14.setBackground(new java.awt.Color(102, 0, 102));
+        jPanel14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        updateadminaccbtn2.setText("Update");
+        updateadminaccbtn2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                updateadminaccbtn2MouseClicked(evt);
+            }
+        });
+        jPanel14.add(updateadminaccbtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+
+        deleteadminaccbtn2.setText("Delete");
+        deleteadminaccbtn2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deleteadminaccbtn2MouseClicked(evt);
+            }
+        });
+        jPanel14.add(deleteadminaccbtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, -1));
+
+        jPanel7.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 460, 220, 60));
+
+        jLabel19.setText("Password:");
+        jPanel7.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 320, -1, -1));
+
+        jLabel20.setText("IP_ID:");
+        jPanel7.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, -1, -1));
+
+        jLabel21.setText("Name:");
+        jPanel7.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, -1, -1));
+
+        jLabel22.setText("Role:");
+        jPanel7.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, -1));
+
+        jLabel23.setText("Contact No.");
+        jPanel7.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, -1, -1));
+
+        jLabel24.setText("Address:");
+        jPanel7.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, -1, -1));
+
+        jLabel25.setText("Username:");
+        jPanel7.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, -1, -1));
+        jPanel7.add(cashieridfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, 230, -1));
+        jPanel7.add(cashiernamefield1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 340, 230, -1));
+        jPanel7.add(cashierpasswordfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 320, 230, -1));
+        jPanel7.add(cashierrolefield, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, 230, -1));
+        jPanel7.add(cashiercontactfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, 230, -1));
+        jPanel7.add(cashieraddressfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 400, 230, -1));
+        jPanel7.add(cashierusernamefield, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 280, 230, -1));
 
         javax.swing.GroupLayout managecashieraccLayout = new javax.swing.GroupLayout(managecashieracc);
         managecashieracc.setLayout(managecashieraccLayout);
@@ -444,6 +682,329 @@ public class ManageUsers extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_manageexitbtnMouseClicked
 
+    private void updateadminaccbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateadminaccbtnMouseClicked
+        DefaultTableModel manageadmintbl = (DefaultTableModel) manageadmintable.getModel();
+
+        if ("".equals(idfield.getText()) && "".equals(rolefield.getText())) {
+            JOptionPane.showMessageDialog(null, "No Selected Product!", "Alert", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String adminid = (String) manageadmintbl.getValueAt(manageadmintable.getSelectedRow(), 0);
+
+            int count;
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
+                    Statement stmt = con.createStatement();
+                    Statement stmt1 = con.createStatement();
+                    String query = "UPDATE `user_accounts` SET `role`='" + this.rolefield.getText() + "',`Name`='" + this.namefield.getText() + "',`contact_number`='" + this.contactfield.getText() + "',`address`='" + this.addressfield.getText() + "',`username`='" + this.usernamefield.getText() + "',`password`='" + this.passwordfield.getText() + "' WHERE  id = '" + adminid + "'";
+                    stmt.execute(query);
+                    this.cashieridfield.setText(null);
+                    this.cashiernamefield1.setText(null);
+                    this.cashierrolefield.setText(null);
+                    this.cashiercontactfield.setText(null);
+                    this.cashieraddressfield.setText(null);
+                    this.cashierusernamefield.setText(null);
+                    this.cashierpasswordfield.setText(null);
+
+                    ResultSet datas = stmt1.executeQuery("SELECT * FROM `user_accounts`");
+                    while (datas.next()) {
+                        count = 0;
+                        manageadmintbl.removeRow(count);
+                        manageadmintbl.addRow(new Object[]{datas.getString("id"), datas.getString("role"), datas.getString("Name"), datas.getString("contact_number"), datas.getString("address"), datas.getString("username"), datas.getString("password")});
+                    }
+
+                    con.close();
+                    JOptionPane.showMessageDialog(null, "Successfully Updated.", "Alert", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_updateadminaccbtnMouseClicked
+
+    private void deleteadminaccbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteadminaccbtnMouseClicked
+        DefaultTableModel userTableModel = (DefaultTableModel) manageadmintable.getModel();
+        if (manageadmintable.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(null, "Unsuccessful!", "Alert", JOptionPane.ERROR_MESSAGE);
+        } else {
+
+            String adminid = (String) userTableModel.getValueAt(manageadmintable.getSelectedRow(), 0);
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
+                    Statement stmt = con.createStatement();
+                    String query = "DELETE FROM user_accounts WHERE id= " + adminid + "";
+                    stmt.execute(query);
+                    con.close();
+                    JOptionPane.showMessageDialog(null, "Successfully Deleted.", "Alert", JOptionPane.INFORMATION_MESSAGE);
+                    userTableModel.removeRow(manageadmintable.getSelectedRow());
+                }
+            } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+                System.out.println(e.getMessage());
+                JOptionPane.showMessageDialog(null, "Unsuccessful!", "Alert", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_deleteadminaccbtnMouseClicked
+
+    private void manageadmintableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_manageadmintableMouseClicked
+        //to textfield
+        DefaultTableModel manageadmintbl = (DefaultTableModel) manageadmintable.getModel();
+
+        String tblid = (String) manageadmintbl.getValueAt(manageadmintable.getSelectedRow(), 0);
+        String tblrole = (String) manageadmintbl.getValueAt(manageadmintable.getSelectedRow(), 1);
+        String tblname = (String) manageadmintbl.getValueAt(manageadmintable.getSelectedRow(), 2);
+        String tblcontact = (String) manageadmintbl.getValueAt(manageadmintable.getSelectedRow(), 3);
+        String tbladdress = (String) manageadmintbl.getValueAt(manageadmintable.getSelectedRow(), 4);
+        String tblusername = (String) manageadmintbl.getValueAt(manageadmintable.getSelectedRow(), 5);
+        String tblpass = (String) manageadmintbl.getValueAt(manageadmintable.getSelectedRow(), 6);
+
+        this.idfield.setText(tblid);
+        this.namefield.setText(tblname);
+        this.rolefield.setText(tblrole);
+        this.contactfield.setText(tblcontact);
+        this.addressfield.setText(tbladdress);
+        this.usernamefield.setText(tblusername);
+        this.passwordfield.setText(tblpass);
+
+    }//GEN-LAST:event_manageadmintableMouseClicked
+
+    private void updateadminaccbtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateadminaccbtn1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updateadminaccbtn1MouseClicked
+
+    private void deleteadminaccbtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteadminaccbtn1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deleteadminaccbtn1MouseClicked
+
+    private void manageinventorytableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_manageinventorytableMouseClicked
+
+        DefaultTableModel manageiptbl = (DefaultTableModel) manageinventorytable.getModel();
+
+        String ipid = (String) manageiptbl.getValueAt(manageinventorytable.getSelectedRow(), 0);
+        String iprole = (String) manageiptbl.getValueAt(manageinventorytable.getSelectedRow(), 1);
+        String ipname = (String) manageiptbl.getValueAt(manageinventorytable.getSelectedRow(), 2);
+        String ipcontact = (String) manageiptbl.getValueAt(manageinventorytable.getSelectedRow(), 3);
+        String ipaddress = (String) manageiptbl.getValueAt(manageinventorytable.getSelectedRow(), 4);
+        String ipusername = (String) manageiptbl.getValueAt(manageinventorytable.getSelectedRow(), 5);
+        String ippass = (String) manageiptbl.getValueAt(manageinventorytable.getSelectedRow(), 6);
+
+        this.ipidfield.setText(ipid);
+        this.ipnamefield.setText(ipname);
+        this.iprolefield.setText(iprole);
+        this.ipcontactfield.setText(ipcontact);
+        this.ipaddressfield.setText(ipaddress);
+        this.ipusernamefield.setText(ipusername);
+        this.ippasswordfield.setText(ippass);
+    }//GEN-LAST:event_manageinventorytableMouseClicked
+
+    private void manageipupdatebtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_manageipupdatebtnMouseClicked
+        DefaultTableModel manageiptbl = (DefaultTableModel) manageinventorytable.getModel();
+
+        if ("".equals(ipidfield.getText()) && "".equals(iprolefield.getText())) {
+            JOptionPane.showMessageDialog(null, "No Selected Product!", "Alert", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String ipid = (String) manageiptbl.getValueAt(manageinventorytable.getSelectedRow(), 0);
+
+            int count;
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
+                    Statement stmt = con.createStatement();
+                    Statement stmt1 = con.createStatement();
+                    String query = "UPDATE `user_accounts` SET `role`='" + this.iprolefield.getText() + "',`Name`='" + this.ipnamefield.getText() + "',`contact_number`='" + this.ipcontactfield.getText() + "',`address`='" + this.ipaddressfield.getText() + "',`username`='" + this.ipusernamefield.getText() + "',`password`='" + this.ippasswordfield.getText() + "' WHERE  id = '" + ipid + "'";
+                    stmt.execute(query);
+                    this.ipidfield.setText(null);
+                    this.ipnamefield.setText(null);
+                    this.iprolefield.setText(null);
+                    this.ipcontactfield.setText(null);
+                    this.ipaddressfield.setText(null);
+                    this.ipusernamefield.setText(null);
+                    this.ippasswordfield.setText(null);
+
+                    ResultSet datas = stmt1.executeQuery("SELECT * FROM `user_accounts`");
+                    while (datas.next()) {
+                        count = 0;
+                        manageiptbl.removeRow(count);
+                        manageiptbl.addRow(new Object[]{datas.getString("id"), datas.getString("role"), datas.getString("Name"), datas.getString("contact_number"), datas.getString("address"), datas.getString("username"), datas.getString("password")});
+                    }
+
+                    con.close();
+                    JOptionPane.showMessageDialog(null, "Successfully Updated.", "Alert", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+
+
+
+
+
+
+//        DefaultTableModel manageiptbl = (DefaultTableModel) manageinventorytable.getModel();
+//
+//        if ("".equals(ipidfield.getText()) && "".equals(iprolefield.getText())) {
+//            JOptionPane.showMessageDialog(null, "No Selected Product!", "Alert", JOptionPane.ERROR_MESSAGE);
+//        } else {
+//            String ipid = (String) manageiptbl.getValueAt(manageinventorytable.getSelectedRow(), 0);
+//
+//            int count;
+//            try {
+//                Class.forName("com.mysql.jdbc.Driver");
+//                try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
+//                    Statement stmt = con.createStatement();
+//                    Statement stmt1 = con.createStatement();
+//                    String query = "UPDATE `user_accounts` SET `role`='" + this.iprolefield.getText() + "',`Name`='" + this.ipnamefield.getText() + "',`contact_number`='" + this.ipcontactfield.getText() + "',`address`='" + this.ipaddressfield.getText() + "',`username`='" + this.ipusernamefield.getText() + "',`password`='" + this.ippasswordfield.getText() + "' WHERE  id = '" + ipid + "'";
+//                    stmt.execute(query);
+//                    this.ipidfield.setText(null);
+//                    this.ipnamefield.setText(null);
+//                    this.iprolefield.setText(null);
+//                    this.ipcontactfield.setText(null);
+//                    this.ipaddressfield.setText(null);
+//                    this.ipusernamefield.setText(null);
+//                    this.ippasswordfield.setText(null);
+//
+//                    ResultSet datas = stmt1.executeQuery("SELECT * FROM `user_accounts`");
+//                    while (datas.next()) {
+//                        count = 0;
+//                        manageiptbl.removeRow(count);
+//                        manageiptbl.addRow(new Object[]{datas.getString("id"), datas.getString("role"), datas.getString("Name"), datas.getString("contact_number"), datas.getString("address"), datas.getString("username"), datas.getString("password")});
+//                    }
+//
+//                    con.close();
+//                    JOptionPane.showMessageDialog(null, "Successfully Updated.", "Alert", JOptionPane.INFORMATION_MESSAGE);
+//                }
+//            } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+//                System.out.println(e.getMessage());
+//            }
+//        }
+    }//GEN-LAST:event_manageipupdatebtnMouseClicked
+
+    private void manageipdeletebtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_manageipdeletebtnMouseClicked
+        DefaultTableModel userTableModel = (DefaultTableModel) manageinventorytable.getModel();
+        if (manageinventorytable.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(null, "Unsuccessful!", "Alert", JOptionPane.ERROR_MESSAGE);
+        } else {
+
+            String ipid = (String) userTableModel.getValueAt(manageinventorytable.getSelectedRow(), 0);
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
+                    Statement stmt = con.createStatement();
+                    String query = "DELETE FROM user_accounts WHERE id= " + ipid + "";
+                    stmt.execute(query);
+                    con.close();
+                    JOptionPane.showMessageDialog(null, "Successfully Deleted.", "Alert", JOptionPane.INFORMATION_MESSAGE);
+                    userTableModel.removeRow(manageinventorytable.getSelectedRow());
+                }
+            } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+                System.out.println(e.getMessage());
+                JOptionPane.showMessageDialog(null, "Unsuccessful!", "Alert", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_manageipdeletebtnMouseClicked
+
+    private void manageipupdatebtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_manageipupdatebtn1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_manageipupdatebtn1MouseClicked
+
+    private void manageipdeletebtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_manageipdeletebtn1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_manageipdeletebtn1MouseClicked
+
+    private void updateadminaccbtn2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateadminaccbtn2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updateadminaccbtn2MouseClicked
+
+    private void deleteadminaccbtn2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteadminaccbtn2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deleteadminaccbtn2MouseClicked
+
+    private void managecashiertableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_managecashiertableMouseClicked
+        DefaultTableModel managecashiertbl = (DefaultTableModel) managecashiertable.getModel();
+
+        String cashierid = (String) managecashiertbl.getValueAt(managecashiertable.getSelectedRow(), 0);
+        String cashierrole = (String) managecashiertbl.getValueAt(managecashiertable.getSelectedRow(), 1);
+        String cashiername = (String) managecashiertbl.getValueAt(managecashiertable.getSelectedRow(), 2);
+        String cashiercontact = (String) managecashiertbl.getValueAt(managecashiertable.getSelectedRow(), 3);
+        String cashieraddress = (String) managecashiertbl.getValueAt(managecashiertable.getSelectedRow(), 4);
+        String cashierusername = (String) managecashiertbl.getValueAt(managecashiertable.getSelectedRow(), 5);
+        String cashierpass = (String) managecashiertbl.getValueAt(managecashiertable.getSelectedRow(), 6);
+
+        this.cashieridfield.setText(cashierid);
+        this.cashiernamefield1.setText(cashiername);
+        this.cashierrolefield.setText(cashierrole);
+        this.cashiercontactfield.setText(cashiercontact);
+        this.cashieraddressfield.setText(cashieraddress);
+        this.cashierusernamefield.setText(cashierusername);
+        this.cashierpasswordfield.setText(cashierpass);
+    }//GEN-LAST:event_managecashiertableMouseClicked
+
+    private void cashierupdatebtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cashierupdatebtnMouseClicked
+        DefaultTableModel managecashiertbl = (DefaultTableModel) managecashiertable.getModel();
+
+        if ("".equals(cashieridfield.getText()) && "".equals(cashierrolefield.getText())) {
+            JOptionPane.showMessageDialog(null, "No Selected Product!", "Alert", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String cashierid = (String) managecashiertbl.getValueAt(managecashiertable.getSelectedRow(), 0);
+
+            int count;
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
+                    Statement stmt = con.createStatement();
+                    Statement stmt1 = con.createStatement();
+                    String query = "UPDATE `user_accounts` SET `role`='" + this.cashierrolefield.getText() + "',`Name`='" + this.cashiernamefield1.getText() + "',`contact_number`='" + this.cashiercontactfield.getText() + "',`address`='" + this.cashieraddressfield.getText() + "',`username`='" + this.cashierusernamefield.getText() + "',`password`='" + this.cashierpasswordfield.getText() + "' WHERE  id = '" + cashierid + "'";
+                    stmt.execute(query);
+                    this.cashieridfield.setText(null);
+                    this.cashiernamefield1.setText(null);
+                    this.cashierrolefield.setText(null);
+                    this.cashiercontactfield.setText(null);
+                    this.cashieraddressfield.setText(null);
+                    this.cashierusernamefield.setText(null);
+                    this.cashierpasswordfield.setText(null);
+
+                    ResultSet datas = stmt1.executeQuery("SELECT * FROM `user_accounts`");
+                    while (datas.next()) {
+                        count = 0;
+                        managecashiertbl.removeRow(count);
+                        managecashiertbl.addRow(new Object[]{datas.getString("id"), datas.getString("role"), datas.getString("Name"), datas.getString("contact_number"), datas.getString("address"), datas.getString("username"), datas.getString("password")});
+                    }
+
+                    con.close();
+                    JOptionPane.showMessageDialog(null, "Successfully Updated.", "Alert", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_cashierupdatebtnMouseClicked
+
+    private void cashierdeletebtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cashierdeletebtnMouseClicked
+        DefaultTableModel userTableModel = (DefaultTableModel) managecashiertable.getModel();
+        if (managecashiertable.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(null, "Unsuccessful!", "Alert", JOptionPane.ERROR_MESSAGE);
+        } else {
+
+            String cashierid = (String) userTableModel.getValueAt(managecashiertable.getSelectedRow(), 0);
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
+                    Statement stmt = con.createStatement();
+                    String query = "DELETE FROM user_accounts WHERE id= " + cashierid + "";
+                    stmt.execute(query);
+                    con.close();
+                    JOptionPane.showMessageDialog(null, "Successfully Deleted.", "Alert", JOptionPane.INFORMATION_MESSAGE);
+                    userTableModel.removeRow(managecashiertable.getSelectedRow());
+                }
+            } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+                System.out.println(e.getMessage());
+                JOptionPane.showMessageDialog(null, "Unsuccessful!", "Alert", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_cashierdeletebtnMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -480,23 +1041,64 @@ public class ManageUsers extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField addressfield;
+    private javax.swing.JTextField cashieraddressfield;
+    private javax.swing.JTextField cashiercontactfield;
+    private javax.swing.JButton cashierdeletebtn;
+    private javax.swing.JTextField cashieridfield;
+    private javax.swing.JTextField cashiernamefield1;
+    private javax.swing.JTextField cashierpasswordfield;
+    private javax.swing.JTextField cashierrolefield;
+    private javax.swing.JButton cashierupdatebtn;
+    private javax.swing.JTextField cashierusernamefield;
+    private javax.swing.JTextField contactfield;
     private javax.swing.JButton deleteadminaccbtn;
+    private javax.swing.JButton deleteadminaccbtn1;
+    private javax.swing.JButton deleteadminaccbtn2;
     private javax.swing.JPanel dunnopanel;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JTextField idfield;
+    private javax.swing.JTextField ipaddressfield;
+    private javax.swing.JTextField ipcontactfield;
+    private javax.swing.JTextField ipidfield;
+    private javax.swing.JTextField ipnamefield;
+    private javax.swing.JTextField ippasswordfield;
+    private javax.swing.JTextField iprolefield;
+    private javax.swing.JTextField ipusernamefield;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
@@ -515,6 +1117,16 @@ public class ManageUsers extends javax.swing.JFrame {
     private javax.swing.JPanel manageinventoryacc;
     private javax.swing.JButton manageinventorybtn;
     private javax.swing.JTable manageinventorytable;
+    private javax.swing.JButton manageipdeletebtn;
+    private javax.swing.JButton manageipdeletebtn1;
+    private javax.swing.JButton manageipupdatebtn;
+    private javax.swing.JButton manageipupdatebtn1;
+    private javax.swing.JTextField namefield;
+    private javax.swing.JTextField passwordfield;
+    private javax.swing.JTextField rolefield;
     private javax.swing.JButton updateadminaccbtn;
+    private javax.swing.JButton updateadminaccbtn1;
+    private javax.swing.JButton updateadminaccbtn2;
+    private javax.swing.JTextField usernamefield;
     // End of variables declaration//GEN-END:variables
 }

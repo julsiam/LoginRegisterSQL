@@ -45,7 +45,7 @@ public class productTransactOrder extends javax.swing.JFrame {
                 ResultSet datas = stmt.executeQuery("SELECT * FROM `products`");
                 while (datas.next()) {
                     count = 1;
-                    agriproducttable.addRow(new Object[]{datas.getString("productID"), datas.getString("productName") + "Php ", datas.getString("productPrice") + ".00" + "/pack", datas.getString("quantity") + " packs", datas.getString("description") });
+                    agriproducttable.addRow(new Object[]{datas.getString("productID"), datas.getString("productName"), "Php " + datas.getString("productPrice") + ".00" + "/pack", datas.getString("quantity") + " packs", datas.getString("description") });
                     
                 }
             }
@@ -428,7 +428,7 @@ public class productTransactOrder extends javax.swing.JFrame {
         shopNow.setLayout(shopNowLayout);
         shopNowLayout.setHorizontalGroup(
             shopNowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 735, Short.MAX_VALUE)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE)
         );
         shopNowLayout.setVerticalGroup(
             shopNowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

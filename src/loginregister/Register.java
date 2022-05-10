@@ -201,7 +201,7 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_nameActionPerformed
 
     private void jButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegisterActionPerformed
-        String role = rolebox.getSelectedItem().toString();
+        String role = this.rolebox.getSelectedItem().toString();
         String Name = this.name.getText();
         String Contact = this.contactno.getText();
         String Address = this.address.getText();
@@ -235,6 +235,13 @@ public class Register extends javax.swing.JFrame {
                 System.out.println(e.getMessage());
 
             }
+            this.rolebox.setSelectedIndex(0);
+            this.name.setText(null);
+            this.contactno.setText(null);
+            this.username.setText(null);
+            this.password.setText(null);
+            this.confirmpass.setText(null);
+            
         }
         
 //        if (this.confirmpass.getText().isEmpty()) {

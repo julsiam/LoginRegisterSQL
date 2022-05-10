@@ -5,6 +5,7 @@
  */
 package loginregister;
 
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -217,7 +218,7 @@ public class LogInPageforUsers extends javax.swing.JFrame {
     }//GEN-LAST:event_ippasswordFocusLost
 
     private void ipLogInbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ipLogInbtnMouseClicked
-     
+
         String role = roleuserbox.getSelectedItem().toString();
         String uname = ipusername.getText();
         String pass = String.valueOf(ippassword.getPassword());
@@ -225,11 +226,10 @@ public class LogInPageforUsers extends javax.swing.JFrame {
         if ("Choose your role...".equals(this.roleuserbox.getSelectedItem().toString())) {
             JOptionPane.showMessageDialog(this, "Choose your role in the system!", "Alert", JOptionPane.ERROR_MESSAGE);
             if ("".equals(this.ipusername.getText()) && "".equals(this.ippassword.getText())) {
-            JOptionPane.showMessageDialog(this, "Invalid Username and Password", "Alert", JOptionPane.ERROR_MESSAGE);
-        }
-        
-        } else {
+                JOptionPane.showMessageDialog(this, "Invalid Username and Password", "Alert", JOptionPane.ERROR_MESSAGE);
+            }
 
+        } else if ("Admin".equals(this.roleuserbox.getSelectedItem().toString())) {
             try {
 
                 Class.forName("com.mysql.jdbc.Driver");
@@ -237,7 +237,7 @@ public class LogInPageforUsers extends javax.swing.JFrame {
                 try (Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
 
                     Statement stmt = con.createStatement();
-                    
+
                     String query1 = "SELECT * FROM `user_accounts` WHERE role = '" + role + "' AND username = '" + uname + "' AND password = '" + pass + "'";
                     ResultSet rs = stmt.executeQuery(query1);
 
@@ -249,11 +249,75 @@ public class LogInPageforUsers extends javax.swing.JFrame {
 
                     } else {
 
-                        JOptionPane.showMessageDialog(this, "This admin ccount doesn't exist, Register first!", "Alert", JOptionPane.ERROR_MESSAGE);
-                        //
-                        //                    uname.setText(null);
-                        //
-                        //                    password.setText(null);
+                        JOptionPane.showMessageDialog(this, "This admin account doesn't exist, Register first!", "Alert", JOptionPane.ERROR_MESSAGE);
+                        ipusername.setText("");
+                        ippassword.setText("");
+                        roleuserbox.setSelectedIndex(0);
+                    }
+                }
+
+            } catch (ClassNotFoundException | SQLException e) {
+
+                System.out.println(e.getMessage());
+            }
+
+        } else if (this.roleuserbox.getSelectedItem() == "Inventory Person") {
+            try {
+
+                Class.forName("com.mysql.jdbc.Driver");
+
+                try (Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
+
+                    Statement stmt = con.createStatement();
+
+                    String query1 = "SELECT * FROM `user_accounts` WHERE role = '" + role + "' AND username = '" + uname + "' AND password = '" + pass + "'";
+                    ResultSet rs = stmt.executeQuery(query1);
+
+                    if (rs.next()) {
+                        dispose();//close login page
+
+                        new ManageInventory().setVisible(true);
+                        this.setVisible(false);
+
+                    } else {
+
+                        JOptionPane.showMessageDialog(this, "This inventory account doesn't exist, Register first!", "Alert", JOptionPane.ERROR_MESSAGE);
+                        ipusername.setText("");
+                        ippassword.setText("");
+                        roleuserbox.setSelectedIndex(0);
+                    }
+                }
+
+            } catch (ClassNotFoundException | SQLException e) {
+
+                System.out.println(e.getMessage());
+            }
+
+        } else if (this.roleuserbox.getSelectedItem() == "Cashier") {
+
+            try {
+
+                Class.forName("com.mysql.jdbc.Driver");
+
+                try (Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
+
+                    Statement stmt = con.createStatement();
+
+                    String query1 = "SELECT * FROM `user_accounts` WHERE role = '" + role + "' AND username = '" + uname + "' AND password = '" + pass + "'";
+                    ResultSet rs = stmt.executeQuery(query1);
+
+                    if (rs.next()) {
+                        dispose();//close login page
+
+                        new CashierManagement().setVisible(true);
+                        this.setVisible(false);
+
+                    } else {
+
+                        JOptionPane.showMessageDialog(this, "This cashier account doesn't exist, Register first!", "Alert", JOptionPane.ERROR_MESSAGE);
+                        ipusername.setText("");
+                        ippassword.setText("");
+                        roleuserbox.setSelectedIndex(0);
                     }
                 }
 
@@ -265,7 +329,7 @@ public class LogInPageforUsers extends javax.swing.JFrame {
     }//GEN-LAST:event_ipLogInbtnMouseClicked
 
     private void ipLogInbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ipLogInbtnActionPerformed
- 
+
     }//GEN-LAST:event_ipLogInbtnActionPerformed
 
     private void jButtonRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRegisterMouseClicked
@@ -290,6 +354,7 @@ public class LogInPageforUsers extends javax.swing.JFrame {
         if (evt.getSource() == jButtonReset) {
             ipusername.setText("");
             ippassword.setText("");
+            roleuserbox.setSelectedIndex(0);
         }
     }//GEN-LAST:event_jButtonResetActionPerformed
 
