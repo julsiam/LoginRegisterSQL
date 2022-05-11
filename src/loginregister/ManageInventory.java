@@ -27,9 +27,11 @@ public class ManageInventory extends javax.swing.JFrame {
     public ManageInventory() {
         initComponents();
         this.setLocationRelativeTo(null);
-
+        
+        inventorydisplaytransaction();
         manageInventory();
         displayproducts();
+        datetransactiondisplay();
     }
 
     public void displayproducts() {
@@ -71,6 +73,51 @@ public class ManageInventory extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }
+    
+    public void inventorydisplaytransaction() {
+        DefaultTableModel trasacttable = (DefaultTableModel) inventorytransactiotable.getModel();
+        int count = 0;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
+                Statement stmt = con.createStatement();
+
+                ResultSet datas = stmt.executeQuery("SELECT * FROM `product_sold`");
+                while (datas.next()) {
+                    count = 1;
+                    trasacttable.addRow(new Object[]{datas.getString("date"), datas.getString("productName"), datas.getString("productQuantity"), datas.getString("totalPrice")});
+
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void datetransactiondisplay() {
+        DefaultTableModel producttable = (DefaultTableModel) transactionDateTable.getModel();
+        int count = 0;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
+                Statement stmt = con.createStatement();
+
+                ResultSet datas = stmt.executeQuery("SELECT `date` FROM `product_sold`");
+                while (datas.next()) {
+                    count = 1;
+                    producttable.addRow(new Object[]{datas.getString("date")});
+
+                }
+            }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    
+    
+    
+    
 
   
     /**
@@ -88,9 +135,9 @@ public class ManageInventory extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         productsbtn = new javax.swing.JButton();
-        addstockbtn = new javax.swing.JButton();
+        manageinventorybtn = new javax.swing.JButton();
         adminlogoutbtn = new javax.swing.JButton();
-        addstockbtn1 = new javax.swing.JButton();
+        businesstransactionbtn = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         productDisplay = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
@@ -123,10 +170,10 @@ public class ManageInventory extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        inventorytransactiotable = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
         transactionDateTable = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        deleteTransactionbtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -165,10 +212,10 @@ public class ManageInventory extends javax.swing.JFrame {
             }
         });
 
-        addstockbtn.setText("Manage Inventory");
-        addstockbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+        manageinventorybtn.setText("Manage Inventory");
+        manageinventorybtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addstockbtnMouseClicked(evt);
+                manageinventorybtnMouseClicked(evt);
             }
         });
 
@@ -179,10 +226,10 @@ public class ManageInventory extends javax.swing.JFrame {
             }
         });
 
-        addstockbtn1.setText("Business Transaction");
-        addstockbtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+        businesstransactionbtn.setText("Business Transaction");
+        businesstransactionbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addstockbtn1MouseClicked(evt);
+                businesstransactionbtnMouseClicked(evt);
             }
         });
 
@@ -193,10 +240,10 @@ public class ManageInventory extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(addstockbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(manageinventorybtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(productsbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(adminlogoutbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(addstockbtn1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(businesstransactionbtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(23, 23, 23))
         );
         jPanel4Layout.setVerticalGroup(
@@ -205,9 +252,9 @@ public class ManageInventory extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addComponent(productsbtn)
                 .addGap(39, 39, 39)
-                .addComponent(addstockbtn)
+                .addComponent(manageinventorybtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addComponent(addstockbtn1)
+                .addComponent(businesstransactionbtn)
                 .addGap(28, 28, 28)
                 .addComponent(adminlogoutbtn)
                 .addGap(45, 45, 45))
@@ -335,6 +382,11 @@ public class ManageInventory extends javax.swing.JFrame {
                 inventoryupdatebtnMouseClicked(evt);
             }
         });
+        inventoryupdatebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inventoryupdatebtnActionPerformed(evt);
+            }
+        });
         jPanel8.add(inventoryupdatebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 470, -1, -1));
 
         jLabel5.setText("ProductID: ");
@@ -361,13 +413,13 @@ public class ManageInventory extends javax.swing.JFrame {
         manageinventory.setLayout(manageinventoryLayout);
         manageinventoryLayout.setHorizontalGroup(
             manageinventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, manageinventoryLayout.createSequentialGroup()
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 916, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         manageinventoryLayout.setVerticalGroup(
             manageinventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(manageinventoryLayout.createSequentialGroup()
-                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("", manageinventory);
@@ -386,7 +438,7 @@ public class ManageInventory extends javax.swing.JFrame {
 
         jPanel13.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        inventorytransactiotable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -394,9 +446,9 @@ public class ManageInventory extends javax.swing.JFrame {
                 "Date", "Product Sold", "Quantity", "Total  "
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(inventorytransactiotable);
 
-        jPanel13.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 920, 230));
+        jPanel13.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 230));
 
         transactionDateTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -410,8 +462,13 @@ public class ManageInventory extends javax.swing.JFrame {
 
         jPanel13.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 310, 170));
 
-        jButton1.setText("Delete Transaction");
-        jPanel13.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 330, -1, -1));
+        deleteTransactionbtn.setText("Delete Transaction");
+        deleteTransactionbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deleteTransactionbtnMouseClicked(evt);
+            }
+        });
+        jPanel13.add(deleteTransactionbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 330, -1, -1));
 
         jPanel11.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 910, 460));
 
@@ -419,9 +476,7 @@ public class ManageInventory extends javax.swing.JFrame {
         transactionDisplay.setLayout(transactionDisplayLayout);
         transactionDisplayLayout.setHorizontalGroup(
             transactionDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(transactionDisplayLayout.createSequentialGroup()
-                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 921, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 915, Short.MAX_VALUE)
         );
         transactionDisplayLayout.setVerticalGroup(
             transactionDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -430,7 +485,7 @@ public class ManageInventory extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("", transactionDisplay);
 
-        jPanel3.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 920, -1));
+        jPanel3.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 920, 560));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 1120, 590));
 
@@ -452,9 +507,9 @@ public class ManageInventory extends javax.swing.JFrame {
         jTabbedPane1.setSelectedIndex(0);
     }//GEN-LAST:event_productsbtnMouseClicked
 
-    private void addstockbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addstockbtnMouseClicked
+    private void manageinventorybtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_manageinventorybtnMouseClicked
         jTabbedPane1.setSelectedIndex(1);
-    }//GEN-LAST:event_addstockbtnMouseClicked
+    }//GEN-LAST:event_manageinventorybtnMouseClicked
 
     private void adminlogoutbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminlogoutbtnMouseClicked
         new LogInPageforUsers().setVisible(true);
@@ -586,9 +641,39 @@ public class ManageInventory extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_inventorydeletebtnMouseClicked
 
-    private void addstockbtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addstockbtn1MouseClicked
+    private void businesstransactionbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_businesstransactionbtnMouseClicked
+        jTabbedPane1.setSelectedIndex(2);
+    }//GEN-LAST:event_businesstransactionbtnMouseClicked
+
+    private void deleteTransactionbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteTransactionbtnMouseClicked
+        DefaultTableModel deletetransactTableModel = (DefaultTableModel) inventorytransactiotable.getModel();
+        if (inventorytransactiotable.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(null, "Unsuccessful!", "Alert", JOptionPane.ERROR_MESSAGE);
+        } else {
+
+            String deleteid = (String) deletetransactTableModel.getValueAt(manageinventorytable.getSelectedRow(), 0);
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
+                    Statement stmt = con.createStatement();
+                    String query = "DELETE FROM product_sold WHERE id= " + deleteid + "";
+                    stmt.execute(query);
+                    con.close();
+                    JOptionPane.showMessageDialog(null, "Successfully Deleted.", "Alert", JOptionPane.INFORMATION_MESSAGE);
+                    deletetransactTableModel.removeRow(inventorytransactiotable.getSelectedRow());
+                    
+                }
+            } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+                System.out.println(e.getMessage());
+                JOptionPane.showMessageDialog(null, "Unsuccessful!", "Alert", JOptionPane.ERROR_MESSAGE);
+            }
+        }  
+        
+    }//GEN-LAST:event_deleteTransactionbtnMouseClicked
+
+    private void inventoryupdatebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventoryupdatebtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_addstockbtn1MouseClicked
+    }//GEN-LAST:event_inventoryupdatebtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -627,13 +712,13 @@ public class ManageInventory extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addstockbtn;
-    private javax.swing.JButton addstockbtn1;
     private javax.swing.JButton adminlogoutbtn;
+    private javax.swing.JButton businesstransactionbtn;
+    private javax.swing.JButton deleteTransactionbtn;
     private javax.swing.JButton inventoryaddbtn;
     private javax.swing.JButton inventorydeletebtn;
+    private javax.swing.JTable inventorytransactiotable;
     private javax.swing.JButton inventoryupdatebtn;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel3;
@@ -659,8 +744,8 @@ public class ManageInventory extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel manageinventory;
+    private javax.swing.JButton manageinventorybtn;
     private javax.swing.JTable manageinventorytable;
     private javax.swing.JPanel productDisplay;
     private javax.swing.JTextField productdescriptionfield;

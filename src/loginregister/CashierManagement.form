@@ -222,7 +222,7 @@
               <SubComponents>
                 <Component class="javax.swing.JButton" name="cashiersoldbtn">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Sold"/>
+                    <Property name="text" type="java.lang.String" value="Sell"/>
                   </Properties>
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cashiersoldbtnMouseClicked"/>
