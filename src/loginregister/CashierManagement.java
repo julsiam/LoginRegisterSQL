@@ -17,6 +17,10 @@ import javax.swing.table.DefaultTableModel;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> ed678473a414b2a7c300a6eed6292909751f5e0c
 /**
  *
  * @author 1styrGroupB
@@ -72,7 +76,11 @@ public class CashierManagement extends javax.swing.JFrame {
 
         }
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> ed678473a414b2a7c300a6eed6292909751f5e0c
     public void cashierdisplaytransaction() {
         DefaultTableModel producttable = (DefaultTableModel) cashiertransacttable.getModel();
         int count = 0;
@@ -92,7 +100,13 @@ public class CashierManagement extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }
+<<<<<<< HEAD
 
+=======
+    
+    
+    
+>>>>>>> ed678473a414b2a7c300a6eed6292909751f5e0c
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -197,7 +211,11 @@ public class CashierManagement extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(0, 204, 153));
 
+<<<<<<< HEAD
         cashiersoldbtn.setText("Sell");
+=======
+        cashiersoldbtn.setText("Sold");
+>>>>>>> ed678473a414b2a7c300a6eed6292909751f5e0c
         cashiersoldbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cashiersoldbtnMouseClicked(evt);
@@ -460,6 +478,7 @@ public class CashierManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_tableproductdisplayMouseClicked
 
     private void cashiersoldbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cashiersoldbtnMouseClicked
+<<<<<<< HEAD
 
         LocalDateTime myDateObj = LocalDateTime.now();
         DateTimeFormatter orderDate = DateTimeFormatter.ofPattern("E, MMM dd yyyy");
@@ -469,12 +488,29 @@ public class CashierManagement extends javax.swing.JFrame {
         String price = this.productpricefield.getText();
         String quantity = this.productquantityfield.getText();
 
+=======
+       
+        LocalDateTime myDateObj = LocalDateTime.now();
+        DateTimeFormatter orderDate = DateTimeFormatter.ofPattern("E, MMM dd yyyy");
+        
+         String newOrderDate = myDateObj.format(orderDate);
+        String productname = this.productscombobox.getSelectedItem().toString();
+        String price = this.productpricefield.getText();
+        String quantity = this.productquantityfield.getText();
+        
+
+        
+>>>>>>> ed678473a414b2a7c300a6eed6292909751f5e0c
         if ("Choose a Product...".equals(this.productscombobox.getSelectedItem()) || this.productquantityfield.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Choose a product...", "Alert", JOptionPane.ERROR_MESSAGE);
             JOptionPane.showMessageDialog(null, "Invalid Quantity!", "Alert", JOptionPane.ERROR_MESSAGE);
             this.productpricefield.setText("");
 
         } else {
+<<<<<<< HEAD
+=======
+           
+>>>>>>> ed678473a414b2a7c300a6eed6292909751f5e0c
 
             this.title.setText("Jul' Agri-Supply");
             this.datesoldlabel.setText("Date: " + myDateObj.format(orderDate));
@@ -485,16 +521,34 @@ public class CashierManagement extends javax.swing.JFrame {
             try {
                 DefaultTableModel transactionTableModel = (DefaultTableModel) cashiertransacttable.getModel();
                 Class.forName("com.mysql.jdbc.Driver");
+<<<<<<< HEAD
 
                 try (Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
                     Statement stmt = con.createStatement();
                     String query1 = "INSERT INTO `product_sold`(`date`, `productName`, `productQuantity`, `totalPrice`) VALUES"
                             + "('" + newOrderDate + "','" + productname + "','" + quantity + "','" + price + "')";
+=======
+                
+                try (Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_management_system", "root", "")) {
+                    Statement stmt = con.createStatement();
+                    String query1 = "INSERT INTO `product_sold`(`date`, `productName`, `productQuantity`, `totalPrice`) VALUES"
+                            + "('" + newOrderDate + "','" + productname + "','"  + quantity + "','" + price + "')";
+>>>>>>> ed678473a414b2a7c300a6eed6292909751f5e0c
                     stmt.executeUpdate(query1);
 
                     int count;
                     ResultSet data = stmt.executeQuery("SELECT * FROM `product_sold`");
                     if (data.next()) {
+<<<<<<< HEAD
+=======
+                        int qnty = Integer.parseInt(data.getString("productQuantity")) - Integer.parseInt(this.productquantityfield.getText());
+                        System.out.println(data.getString("productQuantity"));
+                        System.out.println(qnty);
+
+                        String newQnty = Integer.toString(qnty);
+                        String query2 = "UPDATE `product_sold` SET `productQuantity`='" + newQnty + "'";
+                        stmt.executeUpdate(query2);
+>>>>>>> ed678473a414b2a7c300a6eed6292909751f5e0c
                     }
 
                     ResultSet newData = stmt.executeQuery("SELECT * FROM `product_sold`");
@@ -553,7 +607,11 @@ public class CashierManagement extends javax.swing.JFrame {
                 System.out.println(e.getMessage());
             }
             this.productpricefield.setText(Integer.toString(price * Integer.parseInt(this.productquantityfield.getText())));
+<<<<<<< HEAD
         } else if ((this.productscombobox.getSelectedItem() == "Dragon Humus Fertilizer") || ("1".equals(this.productquantityfield.getText())) || ("2".equals(this.productquantityfield.getText())) || "3".equals(this.productquantityfield.getText()) || "4".equals(this.productquantityfield.getText()) || "5".equals(this.productquantityfield.getText())) {
+=======
+        } else if ((this.productscombobox.getSelectedItem()=="Dragon Humus Fertilizer"  ) || ("1".equals(this.productquantityfield.getText())) || ("2".equals(this.productquantityfield.getText())) || "3".equals(this.productquantityfield.getText()) || "4".equals(this.productquantityfield.getText()) || "5".equals(this.productquantityfield.getText())) {
+>>>>>>> ed678473a414b2a7c300a6eed6292909751f5e0c
             int price = 0;
             try {
                 Class.forName("com.mysql.jdbc.Driver");
